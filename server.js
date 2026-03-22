@@ -594,7 +594,8 @@ app.get('/api/dashboard', authMiddleware, async (req, res) => {
   if (req.user.role==='employee') {
     const empId=req.user.empId;
     const session=get(db,`SELECT * FROM attendance_sessions WHERE employee_id=? AND date=?`,[empId,today]);
-    const leaveBalance=all(db,`SELECT lp.leave_type,lp.days_per_year,COALESCE(SUM(lr.days),0) as used FROM leave_policy lp LEFT JOIN leave_requests lr ON lr.leave_type=lp.leave_type AND lr.employee_id=? AND lr.status='Approved' GROUP BY lp.leave_type`,[empId]);
+    const leaveBalRaw=all(db,`SELECT lp.leave_type,lp.days_per_year,COALESCE(SUM(lr.days),0) as used FROM leave_policy lp LEFT JOIN leave_requests lr ON lr.leave_type=lp.leave_type AND lr.employee_id=? AND lr.status='Approved' GROUP BY lp.leave_type`,[empId]);
+    const leaveBalance=leaveBalRaw.map(b=>({leave_type:b.leave_type,total:b.days_per_year,used:b.used,remaining:b.days_per_year-b.used}));
     const recentAtt=all(db,`SELECT * FROM attendance WHERE employee_id=? ORDER BY date DESC LIMIT 7`,[empId]);
     const myLeaves=all(db,`SELECT * FROM leave_requests WHERE employee_id=? ORDER BY created_at DESC LIMIT 5`,[empId]);
     const myPayslips=all(db,`SELECT * FROM payroll WHERE employee_id=? AND status='Paid' ORDER BY month DESC LIMIT 3`,[empId]);
