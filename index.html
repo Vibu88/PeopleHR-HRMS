@@ -3,294 +3,333 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>PeopleHR — Modern HRMS</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<title>PeopleHR — Enterprise HRMS</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --g:#00c37a;--gd:#00a066;--gl:#e8faf3;--gx:#00f598;
-  --r:#ff4757;--rl:#fff0f2;--a:#ff9f43;--al:#fff8ee;
-  --b:#3d7fff;--bl:#eef4ff;--p:#a55eea;--pl:#f5eeff;
-  --n0:#ffffff;--n50:#f8fafc;--n100:#f1f5f9;--n150:#e8edf4;--n200:#e2e8f0;
-  --n300:#cbd5e1;--n400:#94a3b8;--n500:#64748b;--n600:#475569;
-  --n700:#334155;--n800:#1e293b;--n900:#0f172a;
-  --rad:10px;--radl:14px;--radx:20px;
-  --sh:0 1px 4px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
-  --shm:0 4px 16px rgba(0,0,0,.08);--shl:0 12px 40px rgba(0,0,0,.12);
-  --sidebar-w:240px;
+  --blue:#1e56a0;--blue-d:#163e7c;--blue-m:#2563b0;--blue-l:#e8f0fb;--blue-xl:#f0f5ff;--blue-mid:#4a7fc1;
+  --teal:#0d7377;--teal-l:#e6f4f4;
+  --green:#1a7f4b;--green-l:#e8f5ee;--green-xl:#d1f0e0;
+  --red:#c0392b;--red-l:#fdf0ee;
+  --amber:#b7770d;--amber-l:#fef8e7;
+  --n0:#ffffff;--n25:#f8f9fc;--n50:#f2f4f8;--n75:#eaecf2;--n100:#dde0ea;
+  --n200:#c4c8d8;--n300:#9fa5bc;--n400:#7a82a0;--n500:#5c6380;
+  --n600:#444b68;--n700:#2e3450;--n800:#1a2038;--n900:#0d1028;
+  --sidebar-w:232px;--topbar-h:52px;
+  --rad:6px;--radl:8px;--radx:12px;
+  --sh0:0 1px 2px rgba(0,0,0,.05);
+  --sh1:0 1px 4px rgba(0,0,0,.07),0 2px 8px rgba(0,0,0,.04);
+  --sh2:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
+  --sh3:0 12px 40px rgba(0,0,0,.12),0 2px 8px rgba(0,0,0,.06);
+  --border:1px solid var(--n100);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--n800);background:var(--n50);-webkit-font-smoothing:antialiased}
+html,body{height:100%;font-family:'IBM Plex Sans',sans-serif;font-size:13.5px;color:var(--n800);background:var(--n50);-webkit-font-smoothing:antialiased}
 
-/* ── AUTH PAGE ── */
-.auth-page{display:flex;height:100vh;background:var(--n900);position:relative;overflow:hidden}
-.auth-left{width:52%;display:flex;flex-direction:column;justify-content:center;padding:60px;position:relative;z-index:1}
-.auth-right{flex:1;display:flex;align-items:center;justify-content:center;padding:40px}
-.auth-bg-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;pointer-events:none}
-.auth-card{background:rgba(255,255,255,.97);border-radius:var(--radx);padding:40px;width:100%;max-width:420px;box-shadow:0 24px 80px rgba(0,0,0,.4)}
-.auth-brand{display:flex;align-items:center;gap:10px;margin-bottom:48px}
-.auth-brand-mark{width:42px;height:42px;background:linear-gradient(135deg,var(--g),var(--gd));border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,195,122,.4)}
-.auth-brand-mark svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round}
-.auth-brand-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:-.3px}
-.auth-brand-name span{color:var(--g)}
-.auth-headline{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:#fff;line-height:1.15;letter-spacing:-1.5px;margin-bottom:16px}
-.auth-headline em{font-style:normal;color:var(--g)}
-.auth-sub{font-size:15px;color:rgba(255,255,255,.5);line-height:1.7;max-width:340px}
-.auth-features{margin-top:40px;display:flex;flex-direction:column;gap:14px}
-.auth-feat{display:flex;align-items:center;gap:12px;font-size:13px;color:rgba(255,255,255,.6)}
-.auth-feat-icon{width:28px;height:28px;border-radius:8px;background:rgba(0,195,122,.15);border:1px solid rgba(0,195,122,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.auth-feat-icon svg{width:13px;height:13px;fill:none;stroke:var(--g);stroke-width:2;stroke-linecap:round}
-.card-title{font-size:20px;font-weight:700;color:var(--n900);letter-spacing:-.4px;margin-bottom:4px}
-.card-sub{font-size:13px;color:var(--n500);margin-bottom:24px}
+/* ══ LOADER ══════════════════════════════════════════ */
+.loader{position:fixed;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .3s}
+.loader-brand{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.loader-icon{width:44px;height:44px;background:var(--blue);border-radius:10px;display:flex;align-items:center;justify-content:center}
+.loader-icon svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+.loader-name{font-size:22px;font-weight:700;color:var(--n900);letter-spacing:-.3px}
+.loader-name span{color:var(--blue)}
+.loader-bar{width:180px;height:3px;background:var(--n100);border-radius:3px;overflow:hidden}
+.loader-fill{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--blue-mid));border-radius:3px;animation:loadfill 1.2s ease forwards}
+@keyframes loadfill{to{width:100%}}
+
+/* ══ AUTH PAGE ══════════════════════════════════════════ */
+.auth-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--n50);padding:24px}
+.auth-card{background:#fff;border:var(--border);border-radius:var(--radx);padding:40px;width:100%;max-width:400px;box-shadow:var(--sh2)}
+.auth-card-logo{display:flex;align-items:center;gap:10px;margin-bottom:32px;padding-bottom:24px;border-bottom:var(--border)}
+.auth-card-logomark{width:36px;height:36px;background:var(--blue);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.auth-card-logomark svg{width:17px;height:17px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round}
+.auth-card-logoname{font-size:16px;font-weight:700;color:var(--n900)}
+.auth-card-logoname span{color:var(--blue)}
+.auth-form-title{font-size:18px;font-weight:700;color:var(--n900);letter-spacing:-.3px;margin-bottom:4px}
+.auth-form-sub{font-size:12.5px;color:var(--n400);margin-bottom:22px}
+.auth-err{background:var(--red-l);border:1px solid #f5c6c2;border-radius:var(--rad);padding:9px 12px;font-size:12px;color:var(--red);margin-bottom:14px;display:none;font-weight:500}
 .fg{margin-bottom:14px}
-.fg label{display:block;font-size:11.5px;font-weight:600;color:var(--n600);margin-bottom:5px;letter-spacing:.02em}
-.fg input{width:100%;padding:10px 13px;border:1.5px solid var(--n200);border-radius:var(--rad);font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--n800);background:#fff;outline:none;transition:border-color .15s,box-shadow .15s}
-.fg input:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(0,195,122,.12)}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.auth-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border:none;border-radius:var(--rad);font-size:14px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .2s;box-shadow:0 4px 14px rgba(0,195,122,.35);letter-spacing:.01em}
-.auth-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,195,122,.45)}
-.auth-err{background:#fff0f2;border:1.5px solid #ffd6db;border-radius:var(--rad);padding:9px 12px;font-size:12px;color:var(--r);margin-bottom:14px;display:none}
-.auth-switch{text-align:center;margin-top:16px;font-size:12.5px;color:var(--n400)}
-.auth-switch a{color:var(--g);cursor:pointer;font-weight:600;text-decoration:none}
+.fg label{display:block;font-size:11px;font-weight:700;color:var(--n500);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em}
+.fg input{width:100%;padding:9px 12px;border:1.5px solid var(--n100);border-radius:var(--rad);font-size:13px;font-family:'IBM Plex Sans',sans-serif;color:var(--n800);background:#fff;outline:none;transition:all .15s}
+.fg input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(30,86,160,.1)}
+.fg input::placeholder{color:var(--n300)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.auth-btn{width:100%;padding:10px;background:var(--blue);color:#fff;border:none;border-radius:var(--rad);font-size:13.5px;font-weight:600;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;transition:all .15s;letter-spacing:.01em}
+.auth-btn:hover{background:var(--blue-d)}
+.auth-switch{text-align:center;margin-top:16px;font-size:12px;color:var(--n400)}
+.auth-switch a{color:var(--blue);cursor:pointer;font-weight:600}
+.auth-switch a:hover{text-decoration:underline}
 
-/* ── APP SHELL ── */
+/* ══ APP LAYOUT ══════════════════════════════════════════ */
 .app{display:flex;height:100vh;overflow:hidden}
-.sidebar{width:var(--sidebar-w);background:var(--n900);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;overflow-x:hidden}
-.sb-brand{padding:20px 16px 16px;display:flex;align-items:center;gap:9px;border-bottom:1px solid rgba(255,255,255,.06)}
-.sb-brand-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--g),var(--gd));border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(0,195,122,.3)}
-.sb-brand-mark svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round}
-.sb-brand-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px}
-.sb-brand-name span{color:var(--g)}
-.sb-user{margin:12px 10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:var(--radl);padding:10px 12px;display:flex;align-items:center;gap:9px}
-.sb-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;border:2px solid rgba(255,255,255,.1)}
-.sb-uname{font-size:12px;font-weight:600;color:rgba(255,255,255,.9);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sb-urole{display:inline-flex;padding:1px 7px;border-radius:20px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
-.rb-admin{background:rgba(0,195,122,.2);color:#00f598}
-.rb-manager{background:rgba(61,127,255,.2);color:#7eb3ff}
-.rb-employee{background:rgba(255,159,67,.2);color:#ffc07e}
-.sb-sec{padding:16px 16px 5px;font-size:9.5px;font-weight:700;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.1em}
-.sb-item{display:flex;align-items:center;gap:9px;padding:8px 12px;margin:1px 8px;border-radius:var(--rad);cursor:pointer;font-size:12.5px;color:rgba(255,255,255,.45);transition:all .15s;position:relative}
-.sb-item:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.75)}
-.sb-item.active{background:rgba(0,195,122,.12);color:var(--g)}
-.sb-item.active::before{content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);width:3px;height:18px;background:var(--g);border-radius:0 3px 3px 0}
+
+/* ══ SIDEBAR ══════════════════════════════════════════ */
+.sidebar{width:var(--sidebar-w);background:var(--n800);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;overflow-x:hidden}
+.sb-header{padding:0 0 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-brand{padding:16px 18px;display:flex;align-items:center;gap:10px}
+.sb-brandmark{width:28px;height:28px;background:var(--blue);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-brandmark svg{width:13px;height:13px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round}
+.sb-brandname{font-size:14px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.sb-brandname span{color:var(--blue-mid);opacity:.8}
+.sb-user{margin:0;padding:12px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;border:1.5px solid rgba(255,255,255,.15)}
+.sb-uname{font-size:12px;font-weight:600;color:rgba(255,255,255,.9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.sb-urole{display:inline-flex;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+.rb-admin{background:rgba(30,86,160,.4);color:#93bcef}
+.rb-manager{background:rgba(13,115,119,.3);color:#5dcaca}
+.rb-employee{background:rgba(26,127,75,.3);color:#5dcb8c}
+.sb-nav{flex:1;padding:8px 0}
+.sb-sec{padding:16px 18px 5px;font-size:9px;font-weight:700;color:rgba(255,255,255,.2);text-transform:uppercase;letter-spacing:.12em}
+.sb-item{display:flex;align-items:center;gap:9px;padding:7px 18px;cursor:pointer;font-size:12.5px;color:rgba(255,255,255,.45);transition:all .12s;font-weight:500;position:relative;border-left:3px solid transparent}
+.sb-item:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.8)}
+.sb-item.active{background:rgba(30,86,160,.25);color:#fff;border-left-color:var(--blue-mid)}
 .sb-item svg{width:14px;height:14px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
-.sb-badge{margin-left:auto;min-width:18px;height:18px;border-radius:9px;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px}
-.sbb-r{background:rgba(255,71,87,.25);color:#ff7b87}
-.sbb-a{background:rgba(255,159,67,.25);color:#ffb97e}
-.sbb-g{background:rgba(0,195,122,.25);color:#00f598}
-.sb-logout{margin:10px 8px 14px;border:1px solid rgba(255,255,255,.08);background:transparent;border-radius:var(--rad);padding:8px 12px;font-size:12px;color:rgba(255,255,255,.35);cursor:pointer;width:calc(100% - 16px);text-align:left;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:8px;transition:all .15s}
-.sb-logout:hover{background:rgba(255,71,87,.1);color:#ff7b87;border-color:rgba(255,71,87,.2)}
-.sb-logout svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.sb-badge{margin-left:auto;min-width:18px;height:17px;border-radius:3px;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.sbb-r{background:rgba(192,57,43,.35);color:#f1a9a3}
+.sbb-a{background:rgba(183,119,13,.35);color:#f0c96a}
+.sbb-g{background:rgba(26,127,75,.35);color:#6dd9a0}
+.sb-footer{padding:12px 18px;border-top:1px solid rgba(255,255,255,.06)}
+.sb-logout{width:100%;border:1px solid rgba(255,255,255,.1);background:transparent;border-radius:var(--rad);padding:7px 12px;font-size:12px;color:rgba(255,255,255,.35);cursor:pointer;font-family:'IBM Plex Sans',sans-serif;display:flex;align-items:center;gap:8px;transition:all .15s;font-weight:500}
+.sb-logout:hover{background:rgba(192,57,43,.15);color:#f1a9a3;border-color:rgba(192,57,43,.3)}
+.sb-logout svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
 
-/* ── MAIN ── */
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;background:var(--n50)}
-.topbar{padding:0 24px;height:58px;background:#fff;border-bottom:1px solid var(--n150);display:flex;align-items:center;gap:12px;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.topbar-title{font-size:15px;font-weight:700;color:var(--n900);flex:1;letter-spacing:-.4px;font-family:'Syne',sans-serif}
-.srch-wrap{display:flex;align-items:center;gap:8px;background:var(--n50);border:1.5px solid var(--n200);border-radius:var(--rad);padding:7px 12px;transition:border-color .15s}
-.srch-wrap:focus-within{border-color:var(--g)}
-.srch-wrap input{border:none;background:transparent;font-size:12.5px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;color:var(--n800);width:160px}
-.content{flex:1;overflow-y:auto;padding:22px 24px}
+/* ══ MAIN CONTENT ══════════════════════════════════════════ */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{height:var(--topbar-h);background:#fff;border-bottom:var(--border);display:flex;align-items:center;padding:0 22px;gap:12px;flex-shrink:0}
+.topbar-breadcrumb{display:flex;align-items:center;gap:6px;flex:1}
+.topbar-module{font-size:13px;font-weight:700;color:var(--n900);letter-spacing:-.2px}
+.topbar-divider{color:var(--n300);font-size:12px}
+.srch-wrap{display:flex;align-items:center;gap:8px;background:var(--n50);border:var(--border);border-radius:var(--rad);padding:6px 11px;transition:all .15s}
+.srch-wrap:focus-within{border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(30,86,160,.08)}
+.srch-wrap input{border:none;background:transparent;font-size:12.5px;font-family:'IBM Plex Sans',sans-serif;outline:none;color:var(--n800);width:170px}
+.content{flex:1;overflow-y:auto;padding:20px 22px;background:var(--n50)}
 
-/* ── COMPONENTS ── */
-.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:var(--rad);font-size:12.5px;font-weight:600;cursor:pointer;border:1.5px solid var(--n200);background:#fff;color:var(--n700);font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;white-space:nowrap;letter-spacing:.01em}
-.btn:hover{background:var(--n50);border-color:var(--n300)}
-.btn-p{background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(0,195,122,.3)}
-.btn-p:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,195,122,.4)}
-.btn-r{background:var(--r);color:#fff;border-color:transparent}.btn-r:hover{background:#ff3349}
-.btn-a{background:var(--a);color:#fff;border-color:transparent}
-.btn-b{background:var(--b);color:#fff;border-color:transparent}
-.btn-sm{padding:5px 10px;font-size:11.5px}.btn-xs{padding:3px 8px;font-size:11px;border-radius:7px}
+/* ══ BUTTONS ══════════════════════════════════════════ */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:var(--rad);font-size:12.5px;font-weight:600;cursor:pointer;border:1.5px solid var(--n100);background:#fff;color:var(--n700);font-family:'IBM Plex Sans',sans-serif;transition:all .15s;white-space:nowrap}
+.btn:hover{background:var(--n50);border-color:var(--n200)}
+.btn-p{background:var(--blue);color:#fff;border-color:var(--blue)}.btn-p:hover{background:var(--blue-d);border-color:var(--blue-d)}
+.btn-r{background:var(--red);color:#fff;border-color:var(--red)}.btn-r:hover{background:#a93226}
+.btn-a{background:var(--amber);color:#fff;border-color:var(--amber)}
+.btn-b{background:var(--teal);color:#fff;border-color:var(--teal)}
+.btn-sm{padding:5px 10px;font-size:11.5px}.btn-xs{padding:3px 7px;font-size:11px;border-radius:4px}
 
-/* ── STATS GRID ── */
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
-.sc{background:#fff;border:1.5px solid var(--n150);border-radius:var(--radl);padding:16px 18px;box-shadow:var(--sh);transition:transform .2s,box-shadow .2s}
-.sc:hover{transform:translateY(-2px);box-shadow:var(--shm)}
-.sc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.sc-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+/* ══ PAGE HEADER ══════════════════════════════════════════ */
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.page-title{font-size:17px;font-weight:700;color:var(--n900);letter-spacing:-.3px}
+.page-sub{font-size:12px;color:var(--n400);margin-top:2px;font-weight:400}
+
+/* ══ STAT CARDS ══════════════════════════════════════════ */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.sc{background:#fff;border:var(--border);border-radius:var(--radl);padding:16px 18px;box-shadow:var(--sh0);transition:box-shadow .2s;position:relative;overflow:hidden}
+.sc:hover{box-shadow:var(--sh1)}
+.sc-accent{position:absolute;top:0;left:0;right:0;height:3px}
+.sc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.sc-icon{width:36px;height:36px;border-radius:var(--rad);display:flex;align-items:center;justify-content:center}
 .sc-icon svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
-.sc-trend{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:20px}
-.sc-val{font-size:26px;font-weight:700;color:var(--n900);letter-spacing:-1px;line-height:1;font-family:'Syne',sans-serif}
-.sc-label{font-size:11.5px;color:var(--n500);margin-top:4px;font-weight:500}
+.sc-val{font-size:26px;font-weight:700;color:var(--n900);letter-spacing:-1px;line-height:1;font-variant-numeric:tabular-nums}
+.sc-label{font-size:11.5px;color:var(--n400);margin-top:4px;font-weight:500}
+.sc-footer{font-size:11px;color:var(--n300);margin-top:10px;padding-top:10px;border-top:var(--border);display:flex;align-items:center;gap:5px}
 
-/* ── CARDS ── */
-.card{background:#fff;border:1.5px solid var(--n150);border-radius:var(--radl);box-shadow:var(--sh);overflow:hidden;margin-bottom:16px}
-.card-h{padding:13px 16px;border-bottom:1px solid var(--n100);font-size:13px;font-weight:700;color:var(--n800);display:flex;align-items:center;gap:8px;letter-spacing:-.2px}
-.card-h svg{width:14px;height:14px;fill:none;stroke:var(--n400);stroke-width:1.8;stroke-linecap:round}
+/* ══ CARDS ══════════════════════════════════════════ */
+.card{background:#fff;border:var(--border);border-radius:var(--radl);box-shadow:var(--sh0);overflow:hidden;margin-bottom:14px}
+.card-h{padding:11px 16px;border-bottom:1px solid var(--n75);display:flex;align-items:center;gap:8px;background:var(--n25)}
+.card-h-title{font-size:12.5px;font-weight:700;color:var(--n800);letter-spacing:-.1px;flex:1}
+.card-h svg{width:13px;height:13px;fill:none;stroke:var(--n400);stroke-width:1.8;stroke-linecap:round}
 
-/* ── TABLE ── */
+/* ══ TABLES ══════════════════════════════════════════ */
+.tbl-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
-thead th{background:var(--n50);padding:8px 14px;text-align:left;font-size:10.5px;font-weight:700;color:var(--n500);text-transform:uppercase;letter-spacing:.06em;border-bottom:1.5px solid var(--n150);white-space:nowrap}
-tbody td{padding:10px 14px;border-bottom:1px solid var(--n100);color:var(--n700);vertical-align:middle}
+thead th{background:var(--n25);padding:9px 14px;text-align:left;font-size:10px;font-weight:700;color:var(--n400);text-transform:uppercase;letter-spacing:.08em;border-bottom:1.5px solid var(--n100);white-space:nowrap}
+thead th:first-child{padding-left:16px}
+tbody td{padding:10px 14px;border-bottom:1px solid var(--n75);color:var(--n700);vertical-align:middle}
+tbody td:first-child{padding-left:16px}
 tbody tr:last-child td{border-bottom:none}
 tbody tr{transition:background .1s}
-tbody tr:hover td{background:var(--n50)}
+tbody tr:hover td{background:var(--blue-xl)}
 
-/* ── BADGES ── */
-.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;font-size:10.5px;font-weight:600;white-space:nowrap;letter-spacing:.02em}
-.bg{background:#e8faf3;color:#00845a}.br{background:#fff0f2;color:#cc2233}.ba{background:#fff8ee;color:#c47200}.bb{background:#eef4ff;color:#2558cc}.bp{background:#f5eeff;color:#7c35cc}.bgr{background:var(--n100);color:var(--n500)}
+/* ══ BADGES ══════════════════════════════════════════ */
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:3px;font-size:10.5px;font-weight:700;white-space:nowrap;letter-spacing:.02em}
+.bg{background:var(--green-xl);color:var(--green)}
+.br{background:var(--red-l);color:var(--red)}
+.ba{background:var(--amber-l);color:var(--amber)}
+.bb{background:var(--blue-l);color:var(--blue)}
+.bp{background:#f0eeff;color:#5b21b6}
+.bgr{background:var(--n75);color:var(--n500)}
 
-/* ── AVATAR ── */
-.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;border:2px solid rgba(255,255,255,.8)}
-.av-lg{width:46px;height:46px;font-size:14px;border:3px solid rgba(255,255,255,.9)}
+/* ══ AVATAR ══════════════════════════════════════════ */
+.av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+.av-lg{width:44px;height:44px;font-size:14px}
 .ecc{display:flex;align-items:center;gap:9px}
 .ecn{font-size:12.5px;font-weight:600;color:var(--n900)}
-.ecs{font-size:11px;color:var(--n400)}
+.ecs{font-size:11px;color:var(--n400);margin-top:1px}
 
-/* ── CLOCK ── */
-.clock-big{font-family:'Syne',sans-serif;font-size:40px;font-weight:700;color:var(--n900);letter-spacing:-2px;line-height:1}
+/* ══ CLOCK & TIMER ══════════════════════════════════════════ */
+.clock-big{font-family:'IBM Plex Mono',monospace;font-size:36px;font-weight:500;color:var(--n900);letter-spacing:-1px;line-height:1}
 .clock-date{font-size:12px;color:var(--n400);margin-top:4px;font-weight:500}
-.big-timer{font-family:'Syne',sans-serif;font-size:54px;font-weight:700;line-height:1;letter-spacing:-2px}
-.btn-cin{background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border:none;border-radius:var(--radl);padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:8px;transition:all .2s;box-shadow:0 4px 16px rgba(0,195,122,.35);letter-spacing:.01em}
-.btn-cin:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,195,122,.45)}
-.btn-cout{background:linear-gradient(135deg,#ff4757,#cc2233);color:#fff;border:none;border-radius:var(--radl);padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;gap:8px;transition:all .2s;box-shadow:0 4px 16px rgba(255,71,87,.3);letter-spacing:.01em}
-.btn-cout:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,71,87,.4)}
-.btn-cin svg,.btn-cout svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+.big-timer{font-family:'IBM Plex Mono',monospace;font-size:48px;font-weight:500;line-height:1;color:var(--n900)}
+.btn-cin{background:var(--green);color:#fff;border:none;border-radius:var(--rad);padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;display:flex;align-items:center;gap:7px;transition:all .15s;box-shadow:0 2px 8px rgba(26,127,75,.25)}
+.btn-cin:hover{background:#15703f}
+.btn-cout{background:var(--red);color:#fff;border:none;border-radius:var(--rad);padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;font-family:'IBM Plex Sans',sans-serif;display:flex;align-items:center;gap:7px;transition:all .15s;box-shadow:0 2px 8px rgba(192,57,43,.2)}
+.btn-cout:hover{background:#a93226}
+.btn-cin svg,.btn-cout svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
 
-/* ── PROGRESS ── */
-.prog{height:5px;background:var(--n150);border-radius:3px;overflow:hidden;margin-top:5px}
-.prog-f{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--g),var(--gx));transition:width .5s}
+/* ══ PROGRESS ══════════════════════════════════════════ */
+.prog{height:4px;background:var(--n100);border-radius:2px;overflow:hidden;margin-top:5px}
+.prog-f{height:100%;border-radius:2px;background:var(--blue);transition:width .5s}
 
-/* ── TABS ── */
-.tab-bar{display:flex;gap:2px;background:var(--n100);border-radius:var(--rad);padding:3px;width:fit-content;margin-bottom:16px;border:1px solid var(--n200)}
-.tab{padding:6px 14px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;color:var(--n500);transition:all .15s;letter-spacing:.01em}
-.tab.active{background:#fff;color:var(--n800);box-shadow:var(--sh)}
+/* ══ TABS ══════════════════════════════════════════ */
+.tab-bar{display:flex;gap:0;border-bottom:2px solid var(--n100);margin-bottom:16px;width:100%}
+.tab{padding:8px 16px;cursor:pointer;font-size:12.5px;font-weight:600;color:var(--n400);transition:all .15s;border-bottom:2px solid transparent;margin-bottom:-2px;letter-spacing:.01em}
+.tab:hover{color:var(--n700)}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue)}
 
-/* ── NOTICE ── */
-.notice{background:var(--bl);border:1.5px solid #c7dcff;border-radius:var(--rad);padding:10px 13px;font-size:12px;color:#1a4acc;margin-bottom:14px;display:flex;align-items:flex-start;gap:7px}
+/* ══ NOTICE ══════════════════════════════════════════ */
+.notice{background:var(--blue-l);border:1px solid #c5d9f5;border-radius:var(--rad);padding:9px 12px;font-size:12px;color:var(--blue-d);margin-bottom:14px;display:flex;align-items:flex-start;gap:7px;font-weight:500}
 .notice svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0;margin-top:1px}
 
-/* ── PANEL ── */
-.panel{position:fixed;right:0;top:0;height:100%;width:360px;background:#fff;border-left:1.5px solid var(--n150);overflow-y:auto;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);z-index:200;display:flex;flex-direction:column;box-shadow:var(--shl)}
+/* ══ PANEL ══════════════════════════════════════════ */
+.panel{position:fixed;right:0;top:0;height:100%;width:360px;background:#fff;border-left:var(--border);overflow-y:auto;transform:translateX(100%);transition:transform .22s cubic-bezier(.4,0,.2,1);z-index:200;display:flex;flex-direction:column;box-shadow:var(--sh3)}
 .panel.open{transform:translateX(0)}
-.panel-h{padding:14px 18px;border-bottom:1.5px solid var(--n150);display:flex;align-items:center;font-size:13.5px;font-weight:700;flex-shrink:0;letter-spacing:-.2px}
+.panel-h{padding:13px 18px;border-bottom:var(--border);display:flex;align-items:center;font-size:13px;font-weight:700;flex-shrink:0;color:var(--n900);background:var(--n25)}
 .panel-b{padding:18px;flex:1;overflow-y:auto}
 
-/* ── MODAL ── */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:400;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+/* ══ MODAL ══════════════════════════════════════════ */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(10,20,50,.45);z-index:400;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
 .modal-bg.open{display:flex}
-.modal{background:#fff;border-radius:var(--radx);border:1.5px solid var(--n150);width:480px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,.25)}
-.modal-h{padding:16px 20px;border-bottom:1px solid var(--n100);display:flex;align-items:center;font-size:14.5px;font-weight:700;letter-spacing:-.3px}
+.modal{background:#fff;border-radius:var(--radl);border:var(--border);width:480px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--sh3)}
+.modal-h{padding:14px 20px;border-bottom:var(--border);display:flex;align-items:center;font-size:13.5px;font-weight:700;color:var(--n900);background:var(--n25)}
 .modal-b{padding:20px;flex:1;overflow-y:auto}
-.modal-f{padding:13px 20px;border-top:1px solid var(--n100);display:flex;justify-content:flex-end;gap:8px;flex-shrink:0}
+.modal-f{padding:12px 20px;border-top:var(--border);display:flex;justify-content:flex-end;gap:8px;flex-shrink:0;background:var(--n25)}
+.fg select,.fg textarea{width:100%;padding:8px 11px;border:1.5px solid var(--n100);border-radius:var(--rad);font-size:12.5px;font-family:'IBM Plex Sans',sans-serif;color:var(--n800);background:#fff;outline:none;transition:border-color .15s}
+.fg select:focus,.fg textarea:focus{border-color:var(--blue)}
 
-/* ── FORM ── */
+/* ══ DETAIL ROWS ══════════════════════════════════════════ */
 .dsec{margin-bottom:16px}
-.dsec-t{font-size:10px;font-weight:700;color:var(--n400);text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
-.drow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--n100);font-size:12.5px}
+.dsec-t{font-size:9.5px;font-weight:700;color:var(--n300);text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px}
+.drow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--n75);font-size:12.5px}
 .drow:last-child{border-bottom:none}
 .dk{color:var(--n500);font-weight:500}.dv{font-weight:600;color:var(--n800);text-align:right}
-.fg select,.fg textarea{width:100%;padding:8px 11px;border:1.5px solid var(--n200);border-radius:var(--rad);font-size:12.5px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--n800);background:#fff;outline:none;transition:border-color .15s}
-.fg select:focus,.fg textarea:focus{border-color:var(--g)}
 
-/* ── PAYSLIP ── */
-.ps-top{background:linear-gradient(135deg,var(--n900),var(--n800));padding:16px 18px;color:#fff;position:relative;overflow:hidden}
-.ps-top::after{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;border-radius:50%;background:rgba(0,195,122,.1)}
-.ps-row{display:flex;justify-content:space-between;padding:5px 0;font-size:12.5px;border-bottom:1px solid var(--n100)}
+/* ══ PAYSLIP ══════════════════════════════════════════ */
+.ps-top{background:var(--blue);padding:16px 18px;color:#fff}
+.ps-row{display:flex;justify-content:space-between;padding:5px 0;font-size:12.5px;border-bottom:1px solid var(--n75)}
 .ps-row:last-child{border-bottom:none}
-.ps-net{background:linear-gradient(135deg,var(--gl),#d0fae8);border-radius:var(--rad);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:10px;border:1.5px solid rgba(0,195,122,.2)}
+.ps-net{background:var(--green-l);border:1px solid #a8e0c0;border-radius:var(--rad);padding:11px 14px;display:flex;justify-content:space-between;align-items:center;margin-top:10px}
 
-/* ── LEAVE BALANCE CARDS ── */
+/* ══ LEAVE BALANCE ══════════════════════════════════════════ */
 .bal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
-.bal-card{background:#fff;border:1.5px solid var(--n150);border-radius:var(--radl);padding:16px;text-align:center;box-shadow:var(--sh);transition:transform .2s}
-.bal-card:hover{transform:translateY(-2px)}
-.bal-num{font-size:32px;font-weight:700;color:var(--n900);letter-spacing:-1px;font-family:'Syne',sans-serif}
-.bal-label{font-size:11px;color:var(--n500);margin-top:3px;font-weight:500}
-.bal-bar{height:5px;background:var(--n150);border-radius:3px;margin-top:10px;overflow:hidden}
-.bal-fill{height:100%;border-radius:3px;transition:width .5s}
+.bal-card{background:#fff;border:var(--border);border-radius:var(--radl);padding:16px;text-align:center;box-shadow:var(--sh0);transition:box-shadow .2s;position:relative;overflow:hidden}
+.bal-card:hover{box-shadow:var(--sh1)}
+.bal-card-stripe{height:4px;position:absolute;top:0;left:0;right:0}
+.bal-num{font-size:32px;font-weight:700;color:var(--n900);letter-spacing:-1px;font-variant-numeric:tabular-nums;margin-top:4px}
+.bal-label{font-size:10.5px;color:var(--n400);margin-top:3px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.bal-bar{height:4px;background:var(--n100);border-radius:2px;margin-top:12px;overflow:hidden}
+.bal-fill{height:100%;border-radius:2px}
 
-/* ── EMPLOYEE SELF CARD ── */
-.emp-self-card{background:#fff;border:1.5px solid var(--n150);border-radius:var(--radl);padding:20px;box-shadow:var(--sh);margin-bottom:16px}
+/* ══ SELF CARD ══════════════════════════════════════════ */
+.emp-self-card{background:#fff;border:var(--border);border-radius:var(--radl);padding:20px;box-shadow:var(--sh0);margin-bottom:14px}
 
-/* ── TEAM GRID ── */
-.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:13px}
-.tcard{background:#fff;border:1.5px solid var(--n150);border-radius:var(--radl);padding:13px;cursor:pointer;transition:all .2s;box-shadow:var(--sh)}
-.tcard:hover{border-color:var(--g);transform:translateY(-2px);box-shadow:var(--shm)}
+/* ══ TEAM CARD ══════════════════════════════════════════ */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:12px}
+.tcard{background:#fff;border:var(--border);border-radius:var(--radl);padding:14px;cursor:pointer;transition:all .15s;box-shadow:var(--sh0)}
+.tcard:hover{border-color:var(--blue);box-shadow:var(--sh1)}
 
-/* ── LIVE DOT ── */
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.85)}}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--g);display:inline-block;animation:pulse 1.5s infinite;margin-right:5px;vertical-align:middle;box-shadow:0 0 6px var(--g)}
+/* ══ LIVE DOT ══════════════════════════════════════════ */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 1.5s infinite;margin-right:4px;vertical-align:middle}
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--n900);color:#fff;padding:12px 18px;border-radius:var(--radl);font-size:13px;z-index:999;opacity:0;transform:translateY(10px);transition:all .25s;pointer-events:none;box-shadow:var(--shl);font-weight:500;display:flex;align-items:center;gap:8px;border-left:3px solid var(--g)}
+/* ══ TOAST ══════════════════════════════════════════ */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--n800);color:#fff;padding:10px 16px;border-radius:var(--rad);font-size:12.5px;z-index:999;opacity:0;transform:translateY(8px);transition:all .22s;pointer-events:none;box-shadow:var(--sh3);font-weight:500;border-left:3px solid var(--blue);min-width:200px}
 .toast.show{opacity:1;transform:translateY(0)}
-.toast.success{border-left-color:var(--g)}.toast.error{border-left-color:var(--r)}
+.toast.success{border-left-color:var(--green)}
+.toast.error{border-left-color:var(--red)}
 
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--n200);border-radius:10px}::-webkit-scrollbar-thumb:hover{background:var(--n300)}
+/* ══ PROFILE ══════════════════════════════════════════ */
+.profile-hero{background:linear-gradient(135deg,var(--blue-l),var(--blue-xl));border:var(--border);border-radius:var(--radl);padding:22px;margin-bottom:14px;display:flex;align-items:center;gap:16px}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--n100);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--n200)}
 </style>
 </head>
 <body>
 
+<!-- LOADER -->
+<div id="loading-screen" class="loader">
+  <div class="loader-brand">
+    <div class="loader-icon"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="2"/><rect x="9" y="2" width="5" height="5" rx="2"/><path d="M2 13c0-2.5 2-3.5 4-3.5s4 1 4 3.5"/></svg></div>
+    <span class="loader-name">People<span>HR</span></span>
+  </div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
 <!-- AUTH PAGE -->
 <div id="auth-page" class="auth-page" style="display:none">
-  <div class="auth-left">
-    <div class="auth-brand">
-      <div class="auth-brand-mark"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="2"/><rect x="9" y="2" width="5" height="5" rx="2"/><path d="M2 13c0-2.5 2-3.5 4-3.5s4 1 4 3.5"/></svg></div>
-      <span class="auth-brand-name">People<span>HR</span></span>
+  <div class="auth-card">
+    <div class="auth-card-logo">
+      <div class="auth-card-logomark"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="2"/><rect x="9" y="2" width="5" height="5" rx="2"/><path d="M2 13c0-2.5 2-3.5 4-3.5s4 1 4 3.5"/></svg></div>
+      <span class="auth-card-logoname">People<span>HR</span></span>
     </div>
-    <div class="auth-headline">HR made<br><em>beautifully</em><br>simple.</div>
-    <div class="auth-sub">Complete HR management — attendance, payroll, leave, and more. Built for modern teams.</div>
-    <div class="auth-features">
-      <div class="auth-feat"><div class="auth-feat-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg></div>Live attendance tracking</div>
-      <div class="auth-feat"><div class="auth-feat-icon"><svg viewBox="0 0 16 16"><path d="M8 2v12M5 5h4.5a2 2 0 010 4H5m0-4v4"/></svg></div>Automated payroll & payslips</div>
-      <div class="auth-feat"><div class="auth-feat-icon"><svg viewBox="0 0 16 16"><path d="M4 2h8l3 3v9H1V2h3"/></svg></div>Leave management & approvals</div>
+    <!-- REGISTER -->
+    <div id="register-form" style="display:none">
+      <div class="auth-form-title">Set up your organisation</div>
+      <div class="auth-form-sub">Create the first administrator account to get started</div>
+      <div class="auth-err" id="reg-err"></div>
+      <div class="fg"><label>Company name *</label><input type="text" id="reg-company" placeholder="e.g. Acme Technologies Pvt Ltd"></div>
+      <div class="frow">
+        <div class="fg"><label>First name *</label><input type="text" id="reg-fn" placeholder="First name"></div>
+        <div class="fg"><label>Last name *</label><input type="text" id="reg-ln" placeholder="Last name"></div>
+      </div>
+      <div class="fg"><label>Work email *</label><input type="email" id="reg-email" placeholder="admin@yourcompany.com"></div>
+      <div class="fg"><label>Password *</label><input type="password" id="reg-pwd" placeholder="Minimum 6 characters"></div>
+      <button class="auth-btn" onclick="doRegister()" id="reg-btn">Create administrator account</button>
+      <div class="auth-switch">Already have an account? <a onclick="showLogin()">Sign in</a></div>
+    </div>
+    <!-- LOGIN -->
+    <div id="login-form" style="display:none">
+      <div class="auth-form-title">Sign in to PeopleHR</div>
+      <div class="auth-form-sub">Enter your credentials to access your account</div>
+      <div class="auth-err" id="login-err"></div>
+      <div class="fg"><label>Work email</label><input type="email" id="login-email" placeholder="you@company.com"></div>
+      <div class="fg"><label>Password</label><input type="password" id="login-pwd" placeholder="Enter your password"></div>
+      <button class="auth-btn" onclick="doLogin()" id="login-btn">Sign in</button>
+      <div class="auth-switch">First time? <a onclick="showRegister()">Create admin account</a></div>
     </div>
   </div>
-  <div class="auth-right">
-    <div class="auth-card">
-      <!-- REGISTER -->
-      <div id="register-form" style="display:none">
-        <div class="card-title">Set up your company</div>
-        <div class="card-sub">Create the first admin account</div>
-        <div class="auth-err" id="reg-err"></div>
-        <div class="fg"><label>Company name *</label><input type="text" id="reg-company" placeholder="e.g. Acme Technologies Pvt Ltd"></div>
-        <div class="frow">
-          <div class="fg"><label>First name *</label><input type="text" id="reg-fn" placeholder="First name"></div>
-          <div class="fg"><label>Last name *</label><input type="text" id="reg-ln" placeholder="Last name"></div>
-        </div>
-        <div class="fg"><label>Work email *</label><input type="email" id="reg-email" placeholder="admin@company.com"></div>
-        <div class="fg"><label>Password *</label><input type="password" id="reg-pwd" placeholder="Min 6 characters"></div>
-        <button class="auth-btn" onclick="doRegister()" id="reg-btn">Create admin account →</button>
-        <div class="auth-switch">Already have an account? <a onclick="showLogin()">Sign in</a></div>
-      </div>
-      <!-- LOGIN -->
-      <div id="login-form" style="display:none">
-        <div class="card-title">Welcome back 👋</div>
-        <div class="card-sub">Sign in to your PeopleHR account</div>
-        <div class="auth-err" id="login-err"></div>
-        <div class="fg"><label>Work email</label><input type="email" id="login-email" placeholder="you@company.com"></div>
-        <div class="fg"><label>Password</label><input type="password" id="login-pwd" placeholder="Enter password"></div>
-        <button class="auth-btn" onclick="doLogin()" id="login-btn">Sign in →</button>
-        <div class="auth-switch">First time? <a onclick="showRegister()">Create admin account</a></div>
-      </div>
-    </div>
-  </div>
-  <div class="auth-bg-orb" style="width:600px;height:600px;background:var(--g);top:-200px;left:-100px"></div>
-  <div class="auth-bg-orb" style="width:400px;height:400px;background:var(--b);bottom:-100px;left:200px"></div>
 </div>
 
 <!-- MAIN APP -->
 <div class="app" id="main-app" style="display:none">
-<div class="sidebar">
-  <div class="sb-brand">
-    <div class="sb-brand-mark"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="2"/><rect x="9" y="2" width="5" height="5" rx="2"/><path d="M2 13c0-2.5 2-3.5 4-3.5s4 1 4 3.5"/></svg></div>
-    <span class="sb-brand-name">People<span>HR</span></span>
-  </div>
-  <div class="sb-user" id="user-info-box"></div>
-  <div id="sidebar-nav"></div>
-  <button class="sb-logout" onclick="logout()" style="margin-top:auto">
-    <svg viewBox="0 0 16 16"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l4-4-4-4M14 7H6"/></svg>Sign out
-  </button>
-</div>
-<div class="main">
-  <div class="topbar">
-    <div class="topbar-title" id="page-title">Dashboard</div>
-    <div class="srch-wrap" id="srch-wrap">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="var(--n400)" stroke-width="2" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
-      <input id="srch" placeholder="Search..." oninput="renderMod()">
+  <div class="sidebar">
+    <div class="sb-header">
+      <div class="sb-brand">
+        <div class="sb-brandmark"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="2"/><rect x="9" y="2" width="5" height="5" rx="2"/><path d="M2 13c0-2.5 2-3.5 4-3.5s4 1 4 3.5"/></svg></div>
+        <span class="sb-brandname">People<span>HR</span></span>
+      </div>
+      <div class="sb-user" id="user-info-box"></div>
     </div>
-    <div id="tb-actions"></div>
+    <div class="sb-nav" id="sidebar-nav"></div>
+    <div class="sb-footer">
+      <button class="sb-logout" onclick="logout()">
+        <svg viewBox="0 0 16 16"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l4-4-4-4M14 7H6"/></svg>Sign out
+      </button>
+    </div>
   </div>
-  <div class="content" id="content"></div>
-</div>
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-breadcrumb">
+        <span style="font-size:11px;color:var(--n400);font-weight:500">PeopleHR</span>
+        <span class="topbar-divider">/</span>
+        <span class="topbar-module" id="page-title">Dashboard</span>
+      </div>
+      <div class="srch-wrap" id="srch-wrap">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="var(--n300)" stroke-width="2.2" stroke-linecap="round"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+        <input id="srch" placeholder="Search..." oninput="renderMod()">
+      </div>
+      <div id="tb-actions"></div>
+    </div>
+    <div class="content" id="content"></div>
+  </div>
 </div>
 
 <div class="panel" id="panel">
@@ -345,44 +384,57 @@ function showToast(msg, type='success') {
 // ── AUTH FLOW ─────────────────────────────────────────────────────────────────
 // On page load: check localStorage cache first, then verify token is still valid
 async function bootApp() {
-  const cachedToken = localStorage.getItem('phr_token');
-  const cachedMe = localStorage.getItem('phr_me');
-
-  if (cachedToken && cachedMe) {
-    // Token exists in cache — verify it's still valid with server
-    TOKEN = cachedToken;
-    try {
-      const me = await fetch('/api/auth/me', { headers: { 'Authorization': `Bearer ${TOKEN}` } });
-      const json = await me.json();
-      if (json.success) {
-        // Token valid — restore session, skip login page entirely
-        ME = json.data;
-        localStorage.setItem('phr_me', JSON.stringify(ME));
-        initApp();
-        return;
-      }
-    } catch(e) {}
-    // Token invalid/expired — clear cache and show login
-    localStorage.removeItem('phr_token');
-    localStorage.removeItem('phr_me');
-    TOKEN = ''; ME = null;
-  }
-
-  // No valid cache — check if this is first run (no admin exists)
   try {
-    const res = await fetch('/api/auth/check-setup');
-    const json = await res.json();
-    if (json.success && !json.data.setup_done) {
-      showRegister(); // First time ever — show registration
-    } else {
-      showLogin(); // Admin exists — show login
+    const cachedToken = localStorage.getItem('phr_token');
+    const cachedMe = localStorage.getItem('phr_me');
+
+    if (cachedToken && cachedMe) {
+      TOKEN = cachedToken;
+      try {
+        const me = await fetch('/api/auth/me', { headers: { 'Authorization': 'Bearer ' + TOKEN } });
+        const json = await me.json();
+        if (json.success) {
+          ME = json.data;
+          localStorage.setItem('phr_me', JSON.stringify(ME));
+          initApp();
+          return;
+        }
+      } catch(e) {}
+      localStorage.removeItem('phr_token');
+      localStorage.removeItem('phr_me');
+      TOKEN = ''; ME = null;
+    }
+
+    try {
+      const res = await fetch('/api/auth/check-setup');
+      const json = await res.json();
+      if (json.success && !json.data.setup_done) {
+        showRegister();
+      } else {
+        showLogin();
+      }
+    } catch(e) {
+      showLogin();
     }
   } catch(e) {
-    showLogin(); // Server error fallback
+    console.error('bootApp error:', e);
+    showLogin();
   }
 }
 
+function hideLoader() {
+  const ls = document.getElementById('loading-screen');
+  if (ls) { ls.style.opacity='0'; setTimeout(() => { if(ls.parentNode) ls.parentNode.removeChild(ls); }, 300); }
+}
+
+function hideLoader() {
+  const ls = document.getElementById('loading-screen');
+  if (ls) { ls.style.opacity='0'; setTimeout(()=>{if(ls.parentNode)ls.parentNode.removeChild(ls);},300); }
+}
+
 function showRegister() {
+  hideLoader();
+  hideLoader();
   document.getElementById('auth-page').style.display = 'flex';
   document.getElementById('main-app').style.display = 'none';
   document.getElementById('register-form').style.display = 'block';
@@ -391,6 +443,7 @@ function showRegister() {
 }
 
 function showLogin() {
+  hideLoader();
   document.getElementById('auth-page').style.display = 'flex';
   document.getElementById('main-app').style.display = 'none';
   document.getElementById('login-form').style.display = 'block';
@@ -479,6 +532,7 @@ function logout() {
 function stopInts() { if(liveInt){clearInterval(liveInt);liveInt=null;} if(panelInt){clearInterval(panelInt);panelInt=null;} }
 
 function initApp() {
+  hideLoader();
   document.getElementById('auth-page').style.display = 'none';
   document.getElementById('main-app').style.display = 'flex';
   buildSidebar();
@@ -489,10 +543,10 @@ function buildUserInfo() {
   const c = ac(ME.empId);
   const roleClass = ME.role === 'admin' ? 'rb-admin' : ME.role === 'manager' ? 'rb-manager' : 'rb-employee';
   document.getElementById('user-info-box').innerHTML = `
-    <div class="av user-av" style="background:${c.bg};color:${c.c}">${ini(ME.name)}</div>
+    <div class="sb-av" style="background:${c.bg};color:${c.c}">${ini(ME.name)}</div>
     <div style="min-width:0">
-      <div class="user-name" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${ME.name}</div>
-      <span class="role-badge ${roleClass}">${ME.role}</span>
+      <div class="sb-uname" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${ME.name}</div>
+      <span class="sb-urole ${roleClass}">${ME.role}</span>
     </div>`;
 }
 
@@ -541,7 +595,15 @@ function buildSidebar() {
   document.getElementById('sidebar-nav').innerHTML = html;
 }
 
-const TITLES = { dashboard:'Dashboard', employees:'Employees', orgtree:'Org Chart', attendance:ME?.role==='employee'?'My Attendance':'Attendance', attsummary:'Monthly Report', shifts:'Shifts', leave:ME?.role==='employee'?'My Leave':'Leave Requests', leavebal:'Leave Balances', salary:'Salary Structure', payroll:'Payroll Run', payslip:ME?.role==='employee'?'My Payslips':'Payslips', users:'User Accounts', settings:'Settings', profile:'My Profile' };
+function getTitles() {
+  return { dashboard:'Dashboard', employees:'Employees', orgtree:'Org Chart', 
+    attendance:ME?.role==='employee'?'My Attendance':'Attendance', 
+    attsummary:'Monthly Report', shifts:'Shifts', 
+    leave:ME?.role==='employee'?'My Leave':'Leave Requests', 
+    leavebal:'Leave Balances', salary:'Salary Structure', payroll:'Payroll Run', 
+    payslip:ME?.role==='employee'?'My Payslips':'Payslips', 
+    users:'User Accounts', settings:'Settings', profile:'My Profile' };
+}
 
 function nav(el, mod) {
   document.querySelectorAll('.sb-item').forEach(n => n.classList.remove('active'));
@@ -554,7 +616,7 @@ function nav(el, mod) {
 }
 
 function renderMod() {
-  document.getElementById('page-title').textContent = TITLES[curMod] || curMod;
+  document.getElementById('page-title').textContent = getTitles()[curMod] || curMod;
   const ta = document.getElementById('tb-actions'); ta.innerHTML = '';
   if (curMod==='employees'&&(ME.role==='admin')) ta.innerHTML='<button class="btn btn-p btn-sm" onclick="openEmpModal()">+ Add employee</button>';
   if (curMod==='shifts'&&ME.role==='admin') ta.innerHTML='<button class="btn btn-p btn-sm" onclick="openShiftModal()">+ Add shift</button>';
@@ -613,7 +675,7 @@ async function renderDashboard() {
         </div>
         <div class="emp-self-card" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
           <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--n400);margin-bottom:8px">Today's work time</div>
-          <div class="big-timer" id="self-timer" style="color:${session?.clock_in_at&&!session?.clock_out_at?'var(--g)':'var(--n500)'}">${fmtDur(ws)}</div>
+          <div class="big-timer" id="self-timer" style="color:${session?.clock_in_at&&!session?.clock_out_at?'var(--green)':'var(--n500)'}">${fmtDur(ws)}</div>
           <div style="width:100%;max-width:180px;margin:10px 0">
             <div class="prog" style="height:6px"><div class="prog-f self-prog" style="width:${Math.min(100,Math.round(ws/(9*3600)*100))}%"></div></div>
             <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--n400);margin-top:3px"><span>0h</span><span>9h</span></div>
@@ -626,7 +688,7 @@ async function renderDashboard() {
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px">
-        ${(d.leave_balance||[]).map(b=>`<div class="bal-card"><div class="bal-num">${b.remaining}</div><div class="bal-label">${b.leave_type} leave left</div><div class="bal-bar"><div class="bal-fill" style="width:${Math.round(b.used/b.total*100)}%;background:${b.remaining<3?'var(--r)':b.remaining<6?'var(--a)':'var(--g)'}"></div></div><div style="font-size:10px;color:var(--n400);margin-top:3px">${b.used}/${b.total} used</div></div>`).join('')}
+        ${(d.leave_balance||[]).map((b,i)=>`<div class="bal-card"><div class="bal-card-stripe" style="background:${i===0?'var(--blue)':i===1?'var(--green)':'var(--amber)'}"></div><div class="bal-num">${b.remaining}</div><div class="bal-label">${b.leave_type} leave left</div><div class="bal-bar"><div class="bal-fill" style="width:${Math.round(b.used/b.total*100)}%;background:${b.remaining<3?'var(--red)':b.remaining<6?'var(--amber)':'var(--green)'}"></div></div><div style="font-size:10px;color:var(--n400);margin-top:3px">${b.used}/${b.total} used</div></div>`).join('')}
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div class="card"><div class="card-h">Recent attendance</div><table><thead><tr><th>Date</th><th>Status</th><th>Hours</th></tr></thead><tbody>
@@ -642,10 +704,10 @@ async function renderDashboard() {
     // Admin/Manager dashboard
     document.getElementById('content').innerHTML = `
       <div class="stats">
-        <div class="sc"><div class="sc-icon" style="background:#dcfce7;color:#166634"><svg viewBox="0 0 16 16"><circle cx="6" cy="5" r="3"/><path d="M1 14c0-3 2-4 5-4s5 1 5 4"/></svg></div><div class="sc-val">${d.active_employees}</div><div class="sc-label">Active employees</div></div>
-        <div class="sc"><div class="sc-icon" style="background:#dbeafe;color:#1e40af"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg></div><div class="sc-val" style="color:var(--g)"><span class="live-dot"></span>${d.active_sessions}</div><div class="sc-label">Clocked in now</div></div>
-        <div class="sc"><div class="sc-icon" style="background:#fef3c7;color:#92400e"><svg viewBox="0 0 16 16"><path d="M4 2h8l3 3v9H1V2h3"/></svg></div><div class="sc-val" style="color:var(--a)">${d.pending_leaves}</div><div class="sc-label">Leave pending</div></div>
-        <div class="sc"><div class="sc-icon" style="background:#f0fdf4;color:#166634"><svg viewBox="0 0 16 16"><path d="M8 2v12M5 5h4.5a2 2 0 010 4H5m0-4v4"/></svg></div><div class="sc-val" style="font-size:15px">${fmt(d.avg_salary)}</div><div class="sc-label">Avg basic salary</div></div>
+        <div class="sc green"><div class="sc-icon" style="background:#dcfce7;color:#16a34a"><svg viewBox="0 0 16 16"><circle cx="6" cy="5" r="3"/><path d="M1 14c0-3 2-4 5-4s5 1 5 4"/></svg></div><div class="sc-val">${d.active_employees}</div><div class="sc-label">Active employees</div></div>
+        <div class="sc blue"><div class="sc-icon" style="background:#dbeafe;color:#1d4ed8"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg></div><div class="sc-val" style="color:var(--g)"><span class="live-dot"></span>${d.active_sessions}</div><div class="sc-label">Clocked in now</div></div>
+        <div class="sc amber"><div class="sc-icon" style="background:#fef3c7;color:#b45309"><svg viewBox="0 0 16 16"><path d="M4 2h8l3 3v9H1V2h3"/></svg></div><div class="sc-val" style="color:var(--a)">${d.pending_leaves}</div><div class="sc-label">Leave pending</div></div>
+        <div class="sc purple"><div class="sc-icon" style="background:var(--primary-l);color:var(--primary)"><svg viewBox="0 0 16 16"><path d="M8 2v12M5 5h4.5a2 2 0 010 4H5m0-4v4"/></svg></div><div class="sc-val" style="font-size:15px">${fmt(d.avg_salary)}</div><div class="sc-label">Avg basic salary</div></div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
         <div class="card"><div class="card-h"><span class="live-dot"></span>Live sessions today</div><table><thead><tr><th>Employee</th><th>Status</th><th>Time in</th></tr></thead>
@@ -664,7 +726,7 @@ function startSelfTimer() {
     const ws = sess?.clock_in_at && !sess?.clock_out_at ? Math.floor((Date.now()-new Date(sess.clock_in_at))/1000) : (sess?.worked_seconds||0);
     const t = document.getElementById('self-timer');
     const p = document.querySelector('.self-prog');
-    if (t) { t.textContent = fmtDur(ws); t.style.color = sess?.clock_in_at&&!sess?.clock_out_at?'var(--g)':'var(--n500)'; }
+    if (t) { t.textContent = fmtDur(ws); t.style.color = sess?.clock_in_at&&!sess?.clock_out_at?'var(--green)':'var(--n500)'; }
     if (p) p.style.width = Math.min(100,Math.round(ws/(9*3600)*100))+'%';
   }, 1000);
 }
@@ -718,10 +780,10 @@ async function renderAttendance() {
 
   document.getElementById('content').innerHTML = `
     <div class="stats">
-      <div class="sc"><div class="sc-icon" style="background:#dcfce7;color:#166634"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 5l-7 7-3-3"/></svg></div><div class="sc-val" style="color:var(--g)"><span class="live-dot"></span>${summary.active_sessions||0}</div><div class="sc-label">Working now</div></div>
-      <div class="sc"><div class="sc-icon" style="background:#fef3c7;color:#92400e"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg></div><div class="sc-val" style="color:var(--a)">${summary.completed_sessions||0}</div><div class="sc-label">Completed today</div></div>
+      <div class="sc green"><div class="sc-icon" style="background:#dcfce7;color:#16a34a"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 5l-7 7-3-3"/></svg></div><div class="sc-val" style="color:var(--g)"><span class="live-dot"></span>${summary.active_sessions||0}</div><div class="sc-label">Working now</div></div>
+      <div class="sc amber"><div class="sc-icon" style="background:#fef3c7;color:#b45309"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg></div><div class="sc-val" style="color:var(--a)">${summary.completed_sessions||0}</div><div class="sc-label">Completed today</div></div>
       <div class="sc"><div class="sc-icon" style="background:#eff6ff;color:#1e40af"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 2h8l3 3v9H1V2h3"/></svg></div><div class="sc-val" style="color:var(--b)">${pendingRegs}</div><div class="sc-label">Regularizations pending</div></div>
-      <div class="sc"><div class="sc-icon" style="background:#f0fdf4;color:#166634"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="6"/></svg></div><div class="sc-val">${summary.not_clocked_in||0}</div><div class="sc-label">Not clocked in</div></div>
+      <div class="sc purple"><div class="sc-icon" style="background:var(--primary-l);color:var(--primary)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="6"/></svg></div><div class="sc-val">${summary.not_clocked_in||0}</div><div class="sc-label">Not clocked in</div></div>
     </div>
     <div class="tab-bar">
       <div class="tab active" id="tab-live" onclick="attTab(this,'live')">Live clock-in/out</div>
@@ -760,12 +822,12 @@ function renderTeamCard(e) {
   const co=sess?.clock_out_at?new Date(sess.clock_out_at).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}):'—';
   return `<div class="tcard" id="tc-${e.id}" onclick="openClockPanel(${e.id})">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px">
-      <div style="position:relative"><div class="av" style="background:${c.bg};color:${c.c};width:32px;height:32px;font-size:11px">${ini(e.first_name+' '+e.last_name)}</div><div style="position:absolute;bottom:0;right:0;width:9px;height:9px;border-radius:50%;background:${clocked?'var(--g)':'var(--n300)'};border:2px solid #fff"></div></div>
+      <div style="position:relative"><div class="av" style="background:${c.bg};color:${c.c};width:32px;height:32px;font-size:11px">${ini(e.first_name+' '+e.last_name)}</div><div style="position:absolute;bottom:0;right:0;width:9px;height:9px;border-radius:50%;background:${clocked?'var(--green)':'var(--n300)'};border:2px solid #fff"></div></div>
       <div style="flex:1;min-width:0"><div style="font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${e.first_name} ${e.last_name}</div><div style="font-size:11px;color:var(--n400)">${e.department}</div></div>
     </div>
     <div style="display:flex;justify-content:space-between;margin-bottom:7px"><span class="badge ${clocked?'bg':sess?.clock_out_at?'bgr':'bgr'}">${clocked?'● Working':sess?.clock_out_at?'Done':'Not in'}</span></div>
     <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--n400);margin-bottom:5px"><span>In: <strong style="color:var(--n600)">${ci}</strong></span><span>Out: <strong style="color:var(--n600)">${co}</strong></span></div>
-    <div style="font-size:10px;color:var(--n400);display:flex;justify-content:space-between;margin-bottom:2px"><span>Worked</span><span class="tc-t-${e.id}" style="font-family:'DM Mono',monospace;font-weight:500;color:${clocked?'var(--g)':'var(--n400)'}">${fmtDur(ws)}</span></div>
+    <div style="font-size:10px;color:var(--n400);display:flex;justify-content:space-between;margin-bottom:2px"><span>Worked</span><span class="tc-t-${e.id}" style="font-family:'DM Mono',monospace;font-weight:500;color:${clocked?'var(--green)':'var(--n400)'}">${fmtDur(ws)}</span></div>
     <div class="prog"><div class="prog-f tc-p-${e.id}" style="width:${pct}%"></div></div>
   </div>`;
 }
@@ -782,7 +844,7 @@ function startLiveClock() {
     empCache.forEach(e=>{
       const ws=getLiveWs(e.id),clocked=isClockedIn(e.id);
       const t=document.querySelector(`.tc-t-${e.id}`),p=document.querySelector(`.tc-p-${e.id}`);
-      if(t){t.textContent=fmtDur(ws);t.style.color=clocked?'var(--g)':'var(--n400)';}
+      if(t){t.textContent=fmtDur(ws);t.style.color=clocked?'var(--green)':'var(--n400)';}
       if(p) p.style.width=Math.min(100,Math.round(ws/(9*3600)*100))+'%';
     });
   }, 1000);
@@ -801,7 +863,7 @@ async function openClockPanel(empId) {
     </div>
     <div style="background:var(--n50);border:1px solid var(--n200);border-radius:var(--radl);padding:14px;margin-bottom:16px;text-align:center">
       <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--n400);margin-bottom:5px">Worked today</div>
-      <div id="pt-${empId}" style="font-family:'DM Mono',monospace;font-size:32px;font-weight:500;color:${clocked?'var(--g)':'var(--n500)'}">${fmtDur(ws)}</div>
+      <div id="pt-${empId}" style="font-family:'DM Mono',monospace;font-size:32px;font-weight:500;color:${clocked?'var(--green)':'var(--n500)'}">${fmtDur(ws)}</div>
       <div style="margin-top:8px"><div class="prog" style="height:6px"><div class="prog-f pp-${empId}" style="width:${Math.min(100,Math.round(ws/(9*3600)*100))}%"></div></div></div>
     </div>
     <div class="dsec"><div class="dsec-t">Session</div>
@@ -820,7 +882,7 @@ async function openClockPanel(empId) {
   panelInt=setInterval(()=>{
     const ws2=getLiveWs(empId),clocked2=isClockedIn(empId);
     const t=document.getElementById(`pt-${empId}`),p=document.querySelector(`.pp-${empId}`);
-    if(t){t.textContent=fmtDur(ws2);t.style.color=clocked2?'var(--g)':'var(--n500)';}
+    if(t){t.textContent=fmtDur(ws2);t.style.color=clocked2?'var(--green)':'var(--n500)';}
     if(p) p.style.width=Math.min(100,Math.round(ws2/(9*3600)*100))+'%';
   },1000);
 }
@@ -938,9 +1000,9 @@ async function renderAttSummary(){
         const total=r.present+r.wfh+r.late,pct=r.working_days>0?Math.round((total/r.working_days)*100):0;
         const c=ac(r.id);
         return`<tr><td><div class="ecc"><div class="av" style="background:${c.bg};color:${c.c}">${ini(r.first_name+' '+r.last_name)}</div><div><div class="ecn">${r.first_name} ${r.last_name}</div><div class="ecs">${r.department}</div></div></div></td>
-        <td>${r.working_days}</td><td style="color:var(--g);font-weight:500">${r.present}</td><td style="color:var(--p)">${r.wfh}</td><td style="color:var(--a)">${r.late}</td><td style="color:var(--b)">${r.half_day}</td>
-        <td style="color:var(--r);font-weight:${r.absent>0?600:400}">${r.absent}</td>
-        <td><div style="display:flex;align-items:center;gap:7px"><div style="flex:1;height:5px;background:var(--n200);border-radius:3px"><div style="width:${pct}%;height:100%;background:${pct>=90?'var(--g)':pct>=70?'var(--a)':'var(--r)'};border-radius:3px"></div></div><span style="font-size:11.5px;font-weight:600;color:${pct>=90?'var(--g)':pct>=70?'var(--a)':'var(--r)'}">${pct}%</span></div></td></tr>`;
+        <td>${r.working_days}</td><td style="color:var(--green);font-weight:500">${r.present}</td><td style="color:var(--p)">${r.wfh}</td><td style="color:var(--a)">${r.late}</td><td style="color:var(--b)">${r.half_day}</td>
+        <td style="color:var(--red);font-weight:${r.absent>0?600:400}">${r.absent}</td>
+        <td><div style="display:flex;align-items:center;gap:7px"><div style="flex:1;height:5px;background:var(--n200);border-radius:3px"><div style="width:${pct}%;height:100%;background:${pct>=90?'var(--green)':pct>=70?'var(--amber)':'var(--red)'};border-radius:3px"></div></div><span style="font-size:11.5px;font-weight:600;color:${pct>=90?'var(--green)':pct>=70?'var(--amber)':'var(--red)'}">${pct}%</span></div></td></tr>`;
       }).join('')}</tbody></table></div>`;
 }
 
@@ -950,7 +1012,7 @@ async function renderShifts(){
   document.getElementById('content').innerHTML=`<div class="card"><table>
     <thead><tr><th>Name</th><th>Start</th><th>End</th><th>Grace</th><th>Half day</th><th>Work days</th><th>Employees</th><th>Actions</th></tr></thead>
     <tbody>${shifts.map(s=>`<tr>
-      <td><span style="background:var(--gl);color:var(--gd);padding:2px 9px;border-radius:20px;font-size:11px;font-weight:500">${s.name}</span></td>
+      <td><span style="background:var(--green-l);color:#15803d;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:500">${s.name}</span></td>
       <td style="font-family:'DM Mono',monospace">${s.start_time}</td><td style="font-family:'DM Mono',monospace">${s.end_time}</td>
       <td>${s.grace_minutes} min</td><td>${s.half_day_hours}h</td><td>${s.work_days}</td>
       <td><span class="badge bg">${s.employee_count}</span></td>
@@ -985,10 +1047,10 @@ async function renderEmployees(){
   if(stats){const nb=document.getElementById('nb-emp');if(nb)nb.textContent=stats.total;}
   document.getElementById('content').innerHTML=`
     <div class="stats">
-      <div class="sc"><div class="sc-icon" style="background:#dcfce7;color:#166634"><svg viewBox="0 0 16 16"><circle cx="6" cy="5" r="3"/><path d="M1 14c0-3 2-4 5-4s5 1 5 4"/></svg></div><div class="sc-val">${stats?.total||0}</div><div class="sc-label">Total employees</div></div>
-      <div class="sc"><div class="sc-icon" style="background:#dbeafe;color:#1e40af"><svg viewBox="0 0 16 16"><path d="M13 5l-7 7-3-3"/></svg></div><div class="sc-val" style="color:var(--g)">${stats?.active||0}</div><div class="sc-label">Active</div></div>
-      <div class="sc"><div class="sc-icon" style="background:#fef3c7;color:#92400e"><svg viewBox="0 0 16 16"><path d="M8 2v12M2 8h12"/></svg></div><div class="sc-val">${stats?.departments||0}</div><div class="sc-label">Departments</div></div>
-      <div class="sc"><div class="sc-icon" style="background:#f0fdf4;color:#166634"><svg viewBox="0 0 16 16"><path d="M8 2v12M5 5h4.5a2 2 0 010 4H5m0-4v4"/></svg></div><div class="sc-val" style="font-size:15px">${fmt(stats?.avg_salary||0)}</div><div class="sc-label">Avg basic</div></div>
+      <div class="sc green"><div class="sc-icon" style="background:#dcfce7;color:#16a34a"><svg viewBox="0 0 16 16"><circle cx="6" cy="5" r="3"/><path d="M1 14c0-3 2-4 5-4s5 1 5 4"/></svg></div><div class="sc-val">${stats?.total||0}</div><div class="sc-label">Total employees</div></div>
+      <div class="sc blue"><div class="sc-icon" style="background:#dbeafe;color:#1d4ed8"><svg viewBox="0 0 16 16"><path d="M13 5l-7 7-3-3"/></svg></div><div class="sc-val" style="color:var(--g)">${stats?.active||0}</div><div class="sc-label">Active</div></div>
+      <div class="sc amber"><div class="sc-icon" style="background:#fef3c7;color:#b45309"><svg viewBox="0 0 16 16"><path d="M8 2v12M2 8h12"/></svg></div><div class="sc-val">${stats?.departments||0}</div><div class="sc-label">Departments</div></div>
+      <div class="sc purple"><div class="sc-icon" style="background:var(--primary-l);color:var(--primary)"><svg viewBox="0 0 16 16"><path d="M8 2v12M5 5h4.5a2 2 0 010 4H5m0-4v4"/></svg></div><div class="sc-val" style="font-size:15px">${fmt(stats?.avg_salary||0)}</div><div class="sc-label">Avg basic</div></div>
     </div>
     <div class="card"><table>
       <thead><tr><th>Emp no</th><th>Name</th><th>Dept</th><th>Role</th><th>Shift</th><th>Reports to</th><th>Basic</th><th>Status</th><th>Role</th><th>Actions</th></tr></thead>
@@ -996,7 +1058,7 @@ async function renderEmployees(){
         <td style="font-family:'DM Mono',monospace;font-size:11px;color:var(--n400)">${e.emp_no}</td>
         <td><div class="ecc"><div class="av" style="background:${c.bg};color:${c.c}">${ini(e.first_name+' '+e.last_name)}</div><div><div class="ecn">${e.first_name} ${e.last_name}</div><div class="ecs">${e.email}</div></div></div></td>
         <td>${e.department}</td><td>${e.role}</td>
-        <td><span style="background:var(--gl);color:var(--gd);padding:2px 7px;border-radius:20px;font-size:10px;font-weight:500">${e.shift_name||'—'}</span></td>
+        <td><span style="background:var(--green-l);color:#15803d;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:500">${e.shift_name||'—'}</span></td>
         <td style="color:var(--n500)">${e.reports_to_name||'—'}</td>
         <td style="font-family:'DM Mono',monospace;font-size:11.5px">${fmt(e.basic_salary)}</td>
         <td><span class="badge ${e.status==='Active'?'bg':e.status==='On leave'?'ba':'bgr'}">${e.status}</span></td>
@@ -1034,7 +1096,7 @@ async function delEmp(id){if(!confirm('Remove this employee?'))return;await api(
 // ── ORG CHART ────────────────────────────────────────────────────────────────
 async function renderOrgTree(){
   const tree=await api('/org-chart')||[];
-  function buildNode(nodes){return`<div style="display:flex;gap:20px;justify-content:center">${nodes.map(e=>{const c=ac(e.id);return`<div style="display:flex;flex-direction:column;align-items:center"><div onclick="${ME.role==='admin'?`openEmpModal(${e.id})`:''}" style="background:#fff;border:${!e.report_to?'2px solid var(--g)':'1px solid var(--n200)'};border-radius:var(--radl);padding:10px 14px;text-align:center;cursor:${ME.role==='admin'?'pointer':'default'};min-width:120px;box-shadow:var(--sh)"><div class="av" style="background:${c.bg};color:${c.c};width:32px;height:32px;font-size:11px;margin:0 auto 6px">${ini(e.first_name+' '+e.last_name)}</div><div style="font-size:12px;font-weight:600">${e.first_name} ${e.last_name}</div><div style="font-size:10px;color:var(--n400)">${e.role}</div></div>${e.children&&e.children.length?`<div style="width:1px;height:16px;background:var(--n300)"></div>${buildNode(e.children)}`:''}</div>`;}).join('')}</div>`;}
+  function buildNode(nodes){return`<div style="display:flex;gap:20px;justify-content:center">${nodes.map(e=>{const c=ac(e.id);return`<div style="display:flex;flex-direction:column;align-items:center"><div onclick="${ME.role==='admin'?`openEmpModal(${e.id})`:''}" style="background:#fff;border:${!e.report_to?'2px solid var(--green)':'1px solid var(--n200)'};border-radius:var(--radl);padding:10px 14px;text-align:center;cursor:${ME.role==='admin'?'pointer':'default'};min-width:120px;box-shadow:var(--sh)"><div class="av" style="background:${c.bg};color:${c.c};width:32px;height:32px;font-size:11px;margin:0 auto 6px">${ini(e.first_name+' '+e.last_name)}</div><div style="font-size:12px;font-weight:600">${e.first_name} ${e.last_name}</div><div style="font-size:10px;color:var(--n400)">${e.role}</div></div>${e.children&&e.children.length?`<div style="width:1px;height:16px;background:var(--n300)"></div>${buildNode(e.children)}`:''}</div>`;}).join('')}</div>`;}
   document.getElementById('content').innerHTML=`<div class="notice"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 7v4M8 5.5v.5"/></svg>Visual reporting hierarchy.</div><div style="overflow-x:auto;padding:10px">${buildNode(tree)}</div>`;
 }
 
@@ -1045,9 +1107,9 @@ async function renderLeave(){
   const pending=leaves.filter(l=>l.status==='Pending').length;
   document.getElementById('content').innerHTML=`
     <div class="stats">
-      <div class="sc"><div class="sc-icon" style="background:var(--al);color:var(--a)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg></div><div class="sc-val" style="color:var(--a)">${pending}</div><div class="sc-label">Pending</div></div>
-      <div class="sc"><div class="sc-icon" style="background:var(--gl);color:var(--g)"><svg viewBox="0 0 16 16"><path d="M13 5l-7 7-3-3"/></svg></div><div class="sc-val" style="color:var(--g)">${leaves.filter(l=>l.status==='Approved').length}</div><div class="sc-label">Approved</div></div>
-      <div class="sc"><div class="sc-icon" style="background:var(--rl);color:var(--r)"><svg viewBox="0 0 16 16"><path d="M11 5L5 11M5 5l6 6"/></svg></div><div class="sc-val" style="color:var(--r)">${leaves.filter(l=>l.status==='Rejected').length}</div><div class="sc-label">Rejected</div></div>
+      <div class="sc"><div class="sc-icon" style="background:var(--amber-l);color:var(--a)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg></div><div class="sc-val" style="color:var(--a)">${pending}</div><div class="sc-label">Pending</div></div>
+      <div class="sc"><div class="sc-icon" style="background:var(--green-l);color:var(--g)"><svg viewBox="0 0 16 16"><path d="M13 5l-7 7-3-3"/></svg></div><div class="sc-val" style="color:var(--g)">${leaves.filter(l=>l.status==='Approved').length}</div><div class="sc-label">Approved</div></div>
+      <div class="sc"><div class="sc-icon" style="background:var(--red-l);color:var(--r)"><svg viewBox="0 0 16 16"><path d="M11 5L5 11M5 5l6 6"/></svg></div><div class="sc-val" style="color:var(--r)">${leaves.filter(l=>l.status==='Rejected').length}</div><div class="sc-label">Rejected</div></div>
       <div class="sc"><div class="sc-icon" style="background:var(--n100);color:var(--n500)"><svg viewBox="0 0 16 16"><path d="M8 2v12M2 8h12"/></svg></div><div class="sc-val">${leaves.length}</div><div class="sc-label">Total</div></div>
     </div>
     <div class="card"><table>
@@ -1101,7 +1163,7 @@ async function renderLeaveBalance(){
   document.getElementById('lb-body').innerHTML=rows.map(row=>{
     const c=ac(row.emp.id),tu=row.bal.reduce((s,b)=>s+b.used,0),tr2=row.bal.reduce((s,b)=>s+b.remaining,0);
     return`<tr><td><div class="ecc"><div class="av" style="background:${c.bg};color:${c.c}">${ini(row.emp.first_name+' '+row.emp.last_name)}</div><span class="ecn">${row.emp.first_name} ${row.emp.last_name}</span></div></td>
-    ${row.bal.map(b=>{const pct=Math.round(b.used/b.total*100);return`<td><div style="font-size:12px">${b.used} used / <strong>${b.remaining} left</strong><div style="height:4px;background:var(--n200);border-radius:2px;margin-top:3px"><div style="width:${pct}%;height:100%;background:${pct>80?'var(--r)':pct>50?'var(--a)':'var(--g)'};border-radius:2px"></div></div></div></td>`;}).join('')}
+    ${row.bal.map(b=>{const pct=Math.round(b.used/b.total*100);return`<td><div style="font-size:12px">${b.used} used / <strong>${b.remaining} left</strong><div style="height:4px;background:var(--n200);border-radius:2px;margin-top:3px"><div style="width:${pct}%;height:100%;background:${pct>80?'var(--red)':pct>50?'var(--amber)':'var(--green)'};border-radius:2px"></div></div></div></td>`;}).join('')}
     <td style="font-weight:500">${tu}d</td><td><span class="badge ${tr2<5?'br':tr2<15?'ba':'bg'}">${tr2} left</span></td></tr>`;
   }).join('');
 }
@@ -1131,10 +1193,10 @@ async function renderPayroll(){
   const months=[...new Set(payrolls.map(p=>p.month))].sort().reverse();
   document.getElementById('content').innerHTML=`
     <div class="stats">
-      <div class="sc"><div class="sc-icon" style="background:var(--gl);color:var(--g)"><svg viewBox="0 0 16 16"><path d="M13 5l-7 7-3-3"/></svg></div><div class="sc-val">${payrolls.filter(p=>p.status==='Paid').length}</div><div class="sc-label">Paid records</div></div>
-      <div class="sc"><div class="sc-icon" style="background:var(--al);color:var(--a)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg></div><div class="sc-val" style="color:var(--a)">${payrolls.filter(p=>p.status==='Processing').length}</div><div class="sc-label">Processing</div></div>
+      <div class="sc"><div class="sc-icon" style="background:var(--green-l);color:var(--g)"><svg viewBox="0 0 16 16"><path d="M13 5l-7 7-3-3"/></svg></div><div class="sc-val">${payrolls.filter(p=>p.status==='Paid').length}</div><div class="sc-label">Paid records</div></div>
+      <div class="sc"><div class="sc-icon" style="background:var(--amber-l);color:var(--a)"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg></div><div class="sc-val" style="color:var(--a)">${payrolls.filter(p=>p.status==='Processing').length}</div><div class="sc-label">Processing</div></div>
       <div class="sc"><div class="sc-icon" style="background:var(--n100);color:var(--n500)"><svg viewBox="0 0 16 16"><path d="M4 2h8l3 3v9H1V2h3"/></svg></div><div class="sc-val">${payrolls.filter(p=>p.status==='Draft').length}</div><div class="sc-label">Drafts</div></div>
-      <div class="sc"><div class="sc-icon" style="background:var(--bl);color:var(--b)"><svg viewBox="0 0 16 16"><rect x="1" y="4" width="14" height="10" rx="1.5"/><path d="M1 8h14"/></svg></div><div class="sc-val" style="font-size:14px">${fmt(payrolls.filter(p=>p.status==='Paid').reduce((s,p)=>s+p.net_pay,0))}</div><div class="sc-label">Total disbursed</div></div>
+      <div class="sc"><div class="sc-icon" style="background:#dbeafe;color:var(--b)"><svg viewBox="0 0 16 16"><rect x="1" y="4" width="14" height="10" rx="1.5"/><path d="M1 8h14"/></svg></div><div class="sc-val" style="font-size:14px">${fmt(payrolls.filter(p=>p.status==='Paid').reduce((s,p)=>s+p.net_pay,0))}</div><div class="sc-label">Total disbursed</div></div>
     </div>
     ${months.map(m=>{
       const recs=payrolls.filter(p=>p.month===m);const[yr,mo]=m.split('-');const mn=new Date(yr,parseInt(mo)-1).toLocaleString('default',{month:'long'});
@@ -1198,10 +1260,10 @@ async function viewPayslip(empId,month){
           ${[['Basic',ps.basic],['HRA',ps.hra],['Travel',ps.travel_allowance],['Special',ps.special_allowance]].map(([l,v])=>`<div class="ps-row"><span style="color:var(--n600)">${l}</span><span style="font-weight:500">${fmt(v)}</span></div>`).join('')}
           <div class="ps-row" style="font-weight:700;border-top:2px solid var(--n200);margin-top:3px;padding-top:4px"><span>Gross</span><span>${fmt(ps.gross)}</span></div></div>
           <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--n400);margin-bottom:6px">Deductions</div>
-          ${[['PF',ps.pf_deduction],['ESI',ps.esi_deduction],['TDS',ps.tds_deduction]].map(([l,v])=>`<div class="ps-row"><span style="color:var(--n600)">${l}</span><span style="color:var(--r);font-weight:500">${fmt(v)}</span></div>`).join('')}
-          <div class="ps-row" style="font-weight:700;color:var(--r);border-top:2px solid var(--n200);margin-top:3px;padding-top:4px"><span>Total</span><span>${fmt(ps.pf_deduction+ps.esi_deduction+ps.tds_deduction)}</span></div></div>
+          ${[['PF',ps.pf_deduction],['ESI',ps.esi_deduction],['TDS',ps.tds_deduction]].map(([l,v])=>`<div class="ps-row"><span style="color:var(--n600)">${l}</span><span style="color:var(--red);font-weight:500">${fmt(v)}</span></div>`).join('')}
+          <div class="ps-row" style="font-weight:700;color:var(--red);border-top:2px solid var(--n200);margin-top:3px;padding-top:4px"><span>Total</span><span>${fmt(ps.pf_deduction+ps.esi_deduction+ps.tds_deduction)}</span></div></div>
         </div>
-        <div class="ps-net"><div><div style="font-size:11px;font-weight:600;color:var(--gd)">Net pay</div><div style="font-size:10px;color:var(--gd);opacity:.7">${mn} ${yr}</div></div><div style="font-size:22px;font-weight:700;color:var(--g)">${fmt(ps.net_pay)}</div></div>
+        <div class="ps-net"><div><div style="font-size:11px;font-weight:600;color:#15803d">Net pay</div><div style="font-size:10px;color:#15803d;opacity:.7">${mn} ${yr}</div></div><div style="font-size:22px;font-weight:700;color:var(--g)">${fmt(ps.net_pay)}</div></div>
         <div style="text-align:center;font-size:10px;color:var(--n300);margin-top:10px">Computer-generated payslip · ${ps.company_name}</div>
       </div>
     </div>`;
@@ -1270,7 +1332,7 @@ async function renderSettings(){
 async function saveSettings(){
   const leave_policy=settingsCache.leave_policy.map((p,i)=>({leave_type:p.leave_type,days_per_year:parseInt(document.getElementById(`lp-${i}`).value)||p.days_per_year}));
   await api('/settings','PUT',{company_name:document.getElementById('s-co').value,pf_rate:document.getElementById('s-pf').value,tds_rate:document.getElementById('s-tds').value,leave_policy});
-  const btn=event.target;btn.textContent='Saved ✓';btn.style.background='var(--g)';setTimeout(()=>{btn.textContent='Save settings';btn.style.background='';},1500);
+  const btn=event.target;btn.textContent='Saved ✓';btn.style.background='var(--green)';setTimeout(()=>{btn.textContent='Save settings';btn.style.background='';},1500);
 }
 
 // ── PROFILE ──────────────────────────────────────────────────────────────────
@@ -1283,7 +1345,7 @@ async function renderProfile(){
         <div style="padding:20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--n100)">
           <div class="av av-lg" style="background:${c.bg};color:${c.c};width:54px;height:54px;font-size:18px">${ini(ME.name)}</div>
           <div><div style="font-size:17px;font-weight:600">${ME.name}</div><div style="font-size:12px;color:var(--n400);margin-top:2px">${emp?.role||''} · ${emp?.department||''}</div>
-          <span class="role-badge ${ME.role==='admin'?'rb-admin':ME.role==='manager'?'rb-manager':'rb-employee'}" style="margin-top:5px;display:inline-flex">${ME.role}</span></div>
+          <span class="sb-urole ${ME.role==='admin'?'rb-admin':ME.role==='manager'?'rb-manager':'rb-employee'}" style="margin-top:5px;display:inline-flex">${ME.role}</span></div>
         </div>
         <div style="padding:16px">
           <div class="dsec"><div class="dsec-t">Employment</div>
@@ -1332,8 +1394,9 @@ function closeModal(){document.getElementById('modal-bg').classList.remove('open
 function closePanel(){document.getElementById('panel').classList.remove('open');if(panelInt){clearInterval(panelInt);panelInt=null;}}
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
-// Boot the app — handles cache restore, register, or login automatically
 bootApp();
+
+
 
 </script>
 </body>
