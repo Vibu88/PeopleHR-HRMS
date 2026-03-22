@@ -1,7 +1,7 @@
 {
   "name": "peoplehr-hrms",
   "version": "2.0.0",
-  "description": "Full-stack HRMS with login, roles, attendance, payroll, leave",
+  "description": "Full-stack HRMS",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -13,5 +13,8 @@
     "sql.js": "^1.10.3",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
